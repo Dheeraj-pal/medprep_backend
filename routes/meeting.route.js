@@ -6,20 +6,10 @@ const { userModel } = require("../model/user.model");
 const meetingRouter = express.Router();
 
 //get all meetings
-meetingRouter.get("/:patientId", async (req, res) => {
+meetingRouter.get("/:id", async (req, res) => {
   try {
     let id = req.params.id;
     const meetings = await meetModel.find({ patientId: id });
-    res.send(meetings);
-  } catch (error) {
-    res.status(500).send({ message: "cannot retrieve all meeting data" });
-  }
-});
-
-meetingRouter.get("/:docId", async (req, res) => {
-  try {
-    let id = req.params.id;
-    const meetings = await meetModel.find({ docId: id });
     res.send(meetings);
   } catch (error) {
     res.status(500).send({ message: "cannot retrieve all meeting data" });
