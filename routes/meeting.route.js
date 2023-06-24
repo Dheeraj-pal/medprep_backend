@@ -77,13 +77,6 @@ meetingRouter.put("/reschedule/:meetingId", async (req, res) => {
       return res.status(404).json({ message: "Meeting not found" });
     }
 
-    if (
-      meeting.doctorId.toString() !== req.body.doctorId &&
-      meeting.patientId.toString() !== req.body.patientId
-    ) {
-      return res.status(403).json({ message: "Access denied" });
-    }
-
     meeting.startTime = startTime;
     meeting.endTime = endTime;
     await meeting.save();
