@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { doctorModel } = require("../model/doctor.model");
+require("dotenv").config();
+const KEY = process.env.KEY;
 
 const doctorRouter = express.Router();
 
@@ -77,9 +79,7 @@ doctorRouter.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    const token = jwt.sign({ id: doctor._id }, "your-secret-key", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ id: doctor._id }, KEY);
     res.json({ message: "Login Successful", token, doctor });
   } catch (error) {
     console.error(error);
