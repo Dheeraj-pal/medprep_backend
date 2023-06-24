@@ -70,15 +70,14 @@ meetingRouter.post("/schedule", async (req, res) => {
 meetingRouter.put("/reschedule/:meetingId", async (req, res) => {
   try {
     const meetingId = req.params.meetingId;
-    const { startTime, endTime } = req.body;
+    const { dateAndTime } = req.body;
 
     const meeting = await meetModel.findById(meetingId);
     if (!meeting) {
       return res.status(404).json({ message: "Meeting not found" });
     }
 
-    meeting.startTime = startTime;
-    meeting.endTime = endTime;
+    meeting.dateAndTime = dateAndTime;
     await meeting.save();
 
     res.json({ message: "Meeting rescheduled successfully" });
