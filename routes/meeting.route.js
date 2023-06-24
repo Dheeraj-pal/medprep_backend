@@ -9,7 +9,9 @@ const meetingRouter = express.Router();
 meetingRouter.get("/:id", async (req, res) => {
   try {
     let id = req.params.id;
-    const meetings = await meetModel.find({ patientId: id });
+    const meetings = await meetModel.find({
+      $or: [{ doctorId: id }, { patientId: id }],
+    });
     res.send(meetings);
   } catch (error) {
     res.status(500).send({ message: "cannot retrieve all meeting data" });
