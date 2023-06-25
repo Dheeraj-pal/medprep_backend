@@ -7,10 +7,9 @@ const KEY = process.env.KEY;
 
 const userRouter = express.Router();
 
-
 // User Registration
 userRouter.post("/register", async (req, res) => {
-  const { password, email, name, age, gender } = req.body;
+  const { password, email, name, age, gender, role } = req.body;
   try {
     const isPresent = await userModel.find({ email });
 
@@ -25,6 +24,7 @@ userRouter.post("/register", async (req, res) => {
             password: hash,
             age,
             gender,
+            role,
           });
           await newUser.save();
           res.status(200).json({ success: "user registered successfully" });

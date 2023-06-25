@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema(
     password: String,
     gender: String,
     age: Number,
+    role: { type: String, default: "patient" },
   },
   {
     versionKey: false,

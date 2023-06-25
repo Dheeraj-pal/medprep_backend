@@ -35,8 +35,16 @@ doctorRouter.get("/getDoctorID", async (req, res) => {
 // Doctor registration
 doctorRouter.post("/register", async (req, res) => {
   try {
-    const { name, email, password, specialized, gender, experience, age } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      specialized,
+      gender,
+      experience,
+      age,
+      role,
+    } = req.body;
 
     const existingDoctor = await doctorModel.findOne({ email });
     if (existingDoctor) {
@@ -53,6 +61,7 @@ doctorRouter.post("/register", async (req, res) => {
       age,
       experience,
       specialized,
+      role,
     });
 
     await newDoctor.save();
