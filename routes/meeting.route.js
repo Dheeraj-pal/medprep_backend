@@ -8,21 +8,17 @@ const { authorization } = require("../middleware/authorization");
 const meetingRouter = express.Router();
 
 //get all meetings
-meetingRouter.get(
-  "/:id",
-  authorization(["patient","doctor"]),
-  async (req, res) => {
-    try {
-      let id = req.params.id;
-      const meetings = await meetModel.find({
-        $or: [{ doctorId: id }, { patientId: id }],
-      });
-      res.send(meetings);
-    } catch (error) {
-      res.status(500).send({ message: "cannot retrieve all meeting data" });
-    }
+meetingRouter.get("/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    const meetings = await meetModel.find({
+      $or: [{ doctorId: id }, { patientId: id }],
+    });
+    res.send(meetings);
+  } catch (error) {
+    res.status(500).send({ message: "cannot retrieve all meeting data" });
   }
-);
+});
 
 // Schedule a meeting/appointment
 meetingRouter.post(
